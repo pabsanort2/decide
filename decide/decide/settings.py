@@ -70,7 +70,7 @@ MODULES = [
     'voting',
 ]
 
-BASEURL = 'http://localhost:8000'
+BASEURL = 'https://egc-paas-pabsanort2.herokuapp.com'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -165,10 +165,12 @@ KEYBITS = 256
 ALLOWED_VERSIONS = ['v1', 'v2']
 DEFAULT_VERSION = 'v1'
 
+APIS = {}
+
 try:
     from local_settings import *
 except ImportError:
-    print("local_settings.py not found")
+    print("local_settings.py not fouAPISnd")
 
 # loading jsonnet config
 if os.path.exists("config.jsonnet"):
@@ -180,3 +182,5 @@ if os.path.exists("config.jsonnet"):
 
 
 INSTALLED_APPS = INSTALLED_APPS + MODULES
+import django_heroku
+django_heroku.settings(locals())
