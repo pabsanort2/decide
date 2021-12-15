@@ -5,6 +5,9 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        pyversion: ['3.5','3.8']
 
     services:
       postgres:
@@ -19,9 +22,15 @@ jobs:
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
     steps:
+    - name: Set up Python ${{matrix.pyversion}}
+      uses: actions/setup-python@v1
+      with:
+             python-version: ${{matrix.pyversion}}
+    
     - uses: actions/checkout@v1
     - name: Set up Python 3.8
       uses: actions/setup-python@v1
+      
       with:
         python-version: 3.8
     - name: psycopg2 prerequisites
